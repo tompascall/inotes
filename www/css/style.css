@@ -1,0 +1,23 @@
+/* Empty. Add your own CSS if you like */
+
+#notes-header {
+  font-family: 'Gochi Hand', cursive;
+  font-size: 30px;
+}
+
+textarea {
+   resize: none;
+   padding: 10px;
+}
+
+span.tag {
+  background-color: #999;
+  color: #fff;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+p.tag {
+  margin-top: 10px;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>inotes</title>
+    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+  </head>
+  <body ng-app="inotes" ng-controller="InotesCtrl">
+    <ion-header-bar class="bar-dark">
+      <button class="button button-icon" ng-click="toggleProjects()">
+        <i class="icon ion-search"></i>
+      </button>
+      <h1 id="notes-header" class="title">Notes</h1>
+      <!-- New Note button-->
+      <button class="button button-icon" ng-click="newNote()">
+        <i class="icon ion-plus"></i>
+      </button>
+    </ion-header-bar>
+
+    <ion-content>
+      <ion-list>
+        <ion-item ng-repeat="note in notes">
+          <h2>{{note.title}}</h2>
+          <textarea rows="10" readonly>{{note.text}}</textarea>
+          <p class="tag"><strong>Tags: </strong><span class="tag" ng-repeat="tag in note.tags">{{tag}}</span></p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+    <script id="new-note.html" type="text/ng-template">
+      <div class="modal">
+        <!-- Modal header bar -->
+        <ion-header-bar class="secondary">
+          <h1 class="title">New Note</h1>
+          <button class="button button-clear button-positive" ng-click="closeNewNote()">Cancel</button>
+        </ion-header-bar>
+        <!-- Modal content area -->
+        <ion-content>
+          <form ng-submit="createNote(note)">
+            <div class="list">
+              <label class="item item-input">
+                <input type="text" placeholder="Title of your note" ng-model="note.title">
+              </label>
+              <label class="item item-input">
+                <textarea rows="10" placeholder="Enter your note here" ng-model="note.text"></textarea>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Tags (separated by commas)" ng-model="note.tags">
+              </label>
+            </div>
+            <div class="padding">
+              <button type="submit" class="button button-block button-positive">Create Note</button>
+            </div>
+          </form>
+        </ion-content>
+      </div>
+    </script>
+  </body>
+</html>
