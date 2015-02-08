@@ -5,6 +5,24 @@
   font-size: 30px;
 }
 
+div.note-title {
+  display: flex;
+  align-items: center;
+}
+
+h2.note-title {
+  color: red;
+  font-size: 22px;
+}
+
+div.note-close {
+  display: flex;
+}
+
+a.note-close {
+  margin-left: auto;
+}
+
 textarea {
    resize: none;
    padding: 10px;

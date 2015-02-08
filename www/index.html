@@ -33,7 +33,10 @@
     <ion-content>
       <ion-list>
         <ion-item ng-repeat="note in notes">
-          <h2>{{note.title}}</h2>
+          <div class="row">
+            <div class="col-80 note-title"><h2 class="note-title">{{note.title}}</h2></div>
+            <div class="col note-close"><a class="note-close button button-icon icon ion-ios7-close-outline"></a></div>
+          </div>
           <textarea rows="10" readonly>{{note.text}}</textarea>
           <p class="tag"><strong>Tags: </strong><span class="tag" ng-repeat="tag in note.tags">{{tag}}</span></p>
         </ion-item>
