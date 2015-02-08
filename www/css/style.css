@@ -24,8 +24,9 @@ a.note-close {
 }
 
 textarea {
-   resize: none;
-   padding: 10px;
+  resize: none;
+  padding: 10px;
+  text-indent: 0;
 }
 
 span.tag {
