@@ -6,8 +6,9 @@ In order to test the app in a browser
 - install `ionic` node package globally in your system (`npm install -g ionic`)
 - clone the project
 - run `ionic serve` in the project library
+- select the `localhost` option
 - open `http://localhost:8100` in the browser
 
-For the moment you can only add and remove notes. These notes are stored locally.
+You can only add and remove notes for now. These notes are stored locally.
 
 

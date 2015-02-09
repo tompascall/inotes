@@ -5,6 +5,13 @@
 (function(){
   var app = angular.module('notes-directives', []);
 
+  app.directive('newnoteModal', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'newnote-modal.html'
+    };
+  });
+
   app.directive('removeNote', function() {
 
     var noteRemover = function(scope, element, attrs) {
