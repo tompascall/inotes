@@ -35,12 +35,11 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     $scope.note.date = Date.now();
     $scope.notes.unshift($scope.note);
     $scope.noteModal.hide();
-    $scope.updateNotes($scope);
+    $scope.updateNotes();
     $scope.note = {};
   };
 
-  $scope.updateNotes = function(scope) {
-    $scope.notes = scope.notes;
+  $scope.updateNotes = function() {
     Notes.save($scope.notes);
   }
 
@@ -51,6 +50,13 @@ angular.module('inotes', ['ionic', 'notes-directives'])
   $scope.closeNewNote = function() {
     $scope.noteModal.hide();
   };
+
+  $scope.removeNote = function(index) {
+    if (confirm('Are you sure?')) {
+      $scope.notes.splice(index, 1);
+      $scope.updateNotes();
+    }
+  }
 });
 
 function filterTags(tagString) {
