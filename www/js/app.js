@@ -7,7 +7,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
       if(noteString) {
         return angular.fromJson(noteString);
       }
-      return [];
+      return {noteArr: [], dirty: false};
     },
     save: function(notes) {
       window.localStorage['notes'] = angular.toJson(notes);
@@ -16,16 +16,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
 })
 
 .controller('InotesCtrl', function($scope, $ionicModal, Notes) {
-  $scope.note = {};
-  // Load or initialize projects
-  $scope.notes = Notes.all();
-
-  // Create our modal
-  $ionicModal.fromTemplateUrl('new-note.html', function(modal) {
-    $scope.noteModal = modal;
-  }, {
-    scope: $scope
-  });
+  init($scope, $ionicModal);
 
   $scope.createNote = function() {
     if(!$scope.note) {
@@ -33,15 +24,11 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     }
     $scope.note.tags = filterTags($scope.note.tags);
     $scope.note.date = Date.now();
-    $scope.notes.unshift($scope.note);
+    $scope.notes.noteArr.unshift($scope.note);
     $scope.noteModal.hide();
-    $scope.updateNotes();
+    updateNotes($scope);
     $scope.note = {};
   };
-
-  $scope.updateNotes = function() {
-    Notes.save($scope.notes);
-  }
 
   $scope.newNote = function() {
     $scope.noteModal.show();
@@ -53,9 +40,41 @@ angular.module('inotes', ['ionic', 'notes-directives'])
 
   $scope.removeNote = function(index) {
     if (confirm('Are you sure?')) {
-      $scope.notes.splice(index, 1);
-      $scope.updateNotes();
+      $scope.notes.noteArr.splice(index, 1);
+      updateNotes($scope);
     }
+  }
+
+  function init($scope) {
+    $scope.note = {};
+    // Load or initialize projects
+    $scope.notes = Notes.all();
+    var welcomeNote = {
+      title: 'Welcome!',
+      text: 'Welcome to iNotes! This is a simple app ' +
+        'to manage your notes. You can\n' +
+        '- add your notes, and\n' +
+        '- remove them\n\n' +
+        'Soon you will be able to search and edit your notes, too.\n\n' +
+        'Enjoy it!',
+      tags: ['Welcome note', 'enjoy']
+    };
+
+    if (!$scope.notes.dirty) {
+      $scope.notes.dirty = true;
+      $scope.notes.noteArr.push(welcomeNote);
+      updateNotes($scope);
+    }
+    // Create our modal
+    $ionicModal.fromTemplateUrl('new-note.html', function(modal) {
+      $scope.noteModal = modal;
+    }, {
+      scope: $scope
+    });
+  }
+
+  function updateNotes($scope) {
+    Notes.save($scope.notes);
   }
 });
 
