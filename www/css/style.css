@@ -5,22 +5,22 @@
   font-size: 30px;
 }
 
-div.note-title {
+div.note-title, div.tag-title {
   display: flex;
   align-items: center;
 }
 
 h2.note-title {
   color: red;
-  font-size: 22px;
+  font-size: 16px;
 }
 
-div.note-close {
+div.note-close, div.note-edit {
   display: flex;
   align-items: center;
 }
 
-a.note-close {
+a.note-close, a.note-edit {
   margin-left: auto;
 }
 

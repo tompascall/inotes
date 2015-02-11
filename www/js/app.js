@@ -38,6 +38,10 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     $scope.noteModal.hide();
   };
 
+  $scope.editNote = function(index) {
+    $scope.noteModal.show();
+  }
+
   $scope.removeNote = function(index) {
     if (confirm('Are you sure?')) {
       $scope.notes.noteArr.splice(index, 1);

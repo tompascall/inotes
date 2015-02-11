@@ -39,7 +39,15 @@
             <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
           </div>
           <textarea rows="10" readonly ng-bind="note.text"></textarea>
-          <p class="tag"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
+          <div class="row">
+            <div class="col col-80 tag-title">
+              <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
+            </div>
+            <div class="col col-20 note-edit">
+              <a ng-click="editNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
+            </div>
+          </div>
+
         </ion-item>
       </ion-list>
     </ion-content>
