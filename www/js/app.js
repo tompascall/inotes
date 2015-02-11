@@ -66,7 +66,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
       updateNotes($scope);
     }
     // Create our modal
-    $ionicModal.fromTemplateUrl('new-note.html', function(modal) {
+    $ionicModal.fromTemplateUrl('newnote-modal.html', function(modal) {
       $scope.noteModal = modal;
     }, {
       scope: $scope

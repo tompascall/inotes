@@ -17,6 +17,7 @@ h2.note-title {
 
 div.note-close {
   display: flex;
+  align-items: center;
 }
 
 a.note-close {
