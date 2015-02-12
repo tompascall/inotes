@@ -43,7 +43,6 @@ p.tag {
 }
 
 .wordwrap {
-  word-wrap: break-word;
   white-space: normal;
   line-height: 30px;
 }
