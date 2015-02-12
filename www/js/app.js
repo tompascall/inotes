@@ -30,16 +30,28 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     $scope.note = {};
   };
 
-  $scope.newNote = function() {
+  $scope.showNewNote = function() {
     $scope.newnoteModal.show();
   };
 
-  $scope.closeNewNote = function() {
+  $scope.hideNewNote = function() {
     $scope.newnoteModal.hide();
   };
 
+  $scope.showEditNote = function(index) {
+    console.log($scope);
+    $scope.editNoteIndex = index;
+    $scope.editnoteModal.show();
+  }
+
+  $scope.hideEditNote = function() {
+    $scope.editnoteModal.hide();
+  }
+
   $scope.editNote = function(index) {
-    $scope.newnoteModal.show();
+    $scope.editnoteModal.hide();
+    updateNotes($scope);
+    $scope.note = {};
   }
 
   $scope.removeNote = function(index) {
@@ -72,9 +84,11 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     // Create our modal
     $ionicModal.fromTemplateUrl('newnote-modal.html', function(modal) {
       $scope.newnoteModal = modal;
-    }, {
-      scope: $scope
-    });
+    }, { scope: $scope, focusFirstInput: true});
+
+    $ionicModal.fromTemplateUrl('editnote-modal.html', function(modal) {
+      $scope.editnoteModal = modal;
+    },  { scope: $scope });
   }
 
   function updateNotes($scope) {

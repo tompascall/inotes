@@ -4,24 +4,24 @@
   <!-- Modal header bar -->
   <ion-header-bar class="secondary">
     <h1 class="title">Edit Your Note</h1>
-    <button class="button button-clear button-positive" ng-click="closeNewNote()">Cancel</button>
+    <button class="button button-clear button-positive" ng-click="hideEditNote()">Cancel</button>
   </ion-header-bar>
   <!-- Modal content area -->
   <ion-content>
-    <form ng-submit="createNote(note)">
+    <form ng-submit="editNote()">
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="Title of your note" ng-model="note.title">
+          <input type="text" placeholder="Title of your note" ng-model="notes.noteArr[editNoteIndex].title">
         </label>
         <label class="item item-input">
-          <textarea rows="10" placeholder="Enter your note here" ng-model="note.text"></textarea>
+          <textarea rows="10" placeholder="Enter your note here" ng-model="notes.noteArr[editNoteIndex].text"></textarea>
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Tags (separated by commas)" ng-model="note.tags">
+          <input type="text" placeholder="Tags (separated by commas)" ng-model="notes.noteArr[editNoteIndex].tags">
         </label>
       </div>
       <div class="padding">
-        <button type="submit" class="button button-block button-positive">Create Note</button>
+        <button type="submit" class="button button-block button-positive">Save Note</button>
       </div>
     </form>
   </ion-content>

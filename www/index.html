@@ -26,7 +26,7 @@
       </button>
       <h1 id="notes-header" class="title">iNotes</h1>
       <!-- New Note button-->
-      <button class="button button-icon" ng-click="newNote()">
+      <button class="button button-icon" ng-click="showNewNote()">
         <i class="icon ion-plus-round"></i>
       </button>
     </ion-header-bar>
@@ -44,7 +44,7 @@
               <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag wordwrap" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
             </div>
             <div class="col col-20 note-edit">
-              <a ng-click="editNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
+              <a ng-click="showEditNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
             </div>
           </div>
 

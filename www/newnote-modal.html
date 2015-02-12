@@ -4,11 +4,11 @@
   <!-- Modal header bar -->
   <ion-header-bar class="secondary">
     <h1 class="title">Your New Note</h1>
-    <button class="button button-clear button-positive" ng-click="closeNewNote()">Cancel</button>
+    <button class="button button-clear button-positive" ng-click="hideNewNote()">Cancel</button>
   </ion-header-bar>
   <!-- Modal content area -->
   <ion-content>
-    <form ng-submit="createNote(note)">
+    <form ng-submit="createNote()">
       <div class="list">
         <label class="item item-input">
           <input type="text" placeholder="Title of your note" ng-model="note.title">
