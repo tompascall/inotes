@@ -25,21 +25,21 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     $scope.note.tags = filterTags($scope.note.tags);
     $scope.note.date = Date.now();
     $scope.notes.noteArr.unshift($scope.note);
-    $scope.noteModal.hide();
+    $scope.newnoteModal.hide();
     updateNotes($scope);
     $scope.note = {};
   };
 
   $scope.newNote = function() {
-    $scope.noteModal.show();
+    $scope.newnoteModal.show();
   };
 
   $scope.closeNewNote = function() {
-    $scope.noteModal.hide();
+    $scope.newnoteModal.hide();
   };
 
   $scope.editNote = function(index) {
-    $scope.noteModal.show();
+    $scope.newnoteModal.show();
   }
 
   $scope.removeNote = function(index) {
@@ -71,7 +71,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     }
     // Create our modal
     $ionicModal.fromTemplateUrl('newnote-modal.html', function(modal) {
-      $scope.noteModal = modal;
+      $scope.newnoteModal = modal;
     }, {
       scope: $scope
     });

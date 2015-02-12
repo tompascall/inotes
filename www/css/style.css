@@ -39,5 +39,11 @@ span.tag {
 }
 
 p.tag {
-  margin-top: 10px;
+  margin: 10px 0 10px 0;
+}
+
+.wordwrap {
+  word-wrap: break-word;
+  white-space: normal;
+  line-height: 30px;
 }

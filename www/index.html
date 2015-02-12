@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>inotes</title>
+    <title>iNotes</title>
     <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -35,13 +35,13 @@
       <ion-list>
         <ion-item class="note" ng-repeat="note in notes.noteArr">
           <div class="row">
-            <div class="col col-80 note-title"><h2 class="note-title" ng-bind="note.title"></h2></div>
+            <div class="col col-80 note-title"><h2 class="note-title"><span class="wordwrap" ng-bind="note.title"></span></h2></div>
             <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
           </div>
           <textarea rows="10" readonly ng-bind="note.text"></textarea>
           <div class="row">
             <div class="col col-80 tag-title">
-              <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
+              <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag wordwrap" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
             </div>
             <div class="col col-20 note-edit">
               <a ng-click="editNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
