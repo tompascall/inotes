@@ -11,6 +11,8 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     },
     save: function(notes) {
       window.localStorage['notes'] = angular.toJson(notes);
+      console.log('saving...');
+      console.log(notes);
     }
    }
 })
@@ -39,8 +41,8 @@ angular.module('inotes', ['ionic', 'notes-directives'])
   };
 
   $scope.showEditNote = function(index) {
-    console.log($scope);
-    $scope.editNoteIndex = index;
+    $scope.editedNote = angular.copy($scope.notes.noteArr[index]);
+    $scope.editedNote.index = index;
     $scope.editnoteModal.show();
   }
 
@@ -49,9 +51,12 @@ angular.module('inotes', ['ionic', 'notes-directives'])
   }
 
   $scope.editNote = function(index) {
-    $scope.editnoteModal.hide();
+    if (angular.isString($scope.editedNote.tags)) {
+      $scope.editedNote.tags = filterTags($scope.editedNote.tags);
+    }
+    $scope.notes.noteArr[index] = $scope.editedNote;
     updateNotes($scope);
-    $scope.note = {};
+    $scope.editnoteModal.hide();
   }
 
   $scope.removeNote = function(index) {
