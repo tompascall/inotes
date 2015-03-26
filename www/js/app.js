@@ -17,56 +17,46 @@ angular.module('inotes', ['ionic', 'notes-directives'])
    }
 })
 
-.controller('InotesCtrl', function($scope, $ionicModal, Notes) {
-  init($scope, $ionicModal);
+.factory('Tags', function () {
+  return {
+    filterTags: function (tagString) {
+      var set = this.filterSameTags(tagString);
+      return this.removeWhiteSpaces(set);
+    },
 
-  $scope.createNote = function() {
-    if(!$scope.note) {
-      return;
+    filterSameTags: function (tagString) {
+      var set = [];
+      var tagArr;
+      if (tagString) {
+        tagArr = tagString.split(',').filter(function(tag) {
+            return tag !== '';
+        });
+
+        tagArr.forEach(function(tag) {
+          if (set.indexOf(tag) === -1) set.push(tag);
+        });
+      }
+      return set;
+    },
+
+    removeWhiteSpaces: function (set) {
+      var tagWithWhiteSpaceBoundary;
+      return set.map(function(tag) {
+        tagWithWhiteSpaceBoundary = tag.match(/^\s*(\S+[\S\s]*\S+)\s*$/);
+        return (tagWithWhiteSpaceBoundary) ? tagWithWhiteSpaceBoundary[1] : tag;
+      });
     }
-    $scope.note.tags = filterTags($scope.note.tags);
-    $scope.note.date = Date.now();
-    $scope.notes.noteArr.unshift($scope.note);
-    $scope.newnoteModal.hide();
-    updateNotes($scope);
-    $scope.note = {};
+  };
+})
+
+.controller('InotesCtrl', function($scope, $ionicModal, Notes, Tags) {
+  var controller = this;
+
+  this.updateNotes = function () {
+    Notes.save($scope.notes);
   };
 
-  $scope.showNewNote = function() {
-    $scope.newnoteModal.show();
-  };
-
-  $scope.hideNewNote = function() {
-    $scope.newnoteModal.hide();
-  };
-
-  $scope.showEditNote = function(index) {
-    $scope.editedNote = angular.copy($scope.notes.noteArr[index]);
-    $scope.editedNote.index = index;
-    $scope.editnoteModal.show();
-  }
-
-  $scope.hideEditNote = function() {
-    $scope.editnoteModal.hide();
-  }
-
-  $scope.editNote = function(index) {
-    if (angular.isString($scope.editedNote.tags)) {
-      $scope.editedNote.tags = filterTags($scope.editedNote.tags);
-    }
-    $scope.notes.noteArr[index] = $scope.editedNote;
-    updateNotes($scope);
-    $scope.editnoteModal.hide();
-  }
-
-  $scope.removeNote = function(index) {
-    if (confirm('Are you sure?')) {
-      $scope.notes.noteArr.splice(index, 1);
-      updateNotes($scope);
-    }
-  }
-
-  function init($scope) {
+  this.init = (function() {
     $scope.note = {};
     // Load or initialize projects
     $scope.notes = Notes.all();
@@ -84,7 +74,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     if (!$scope.notes.dirty) {
       $scope.notes.dirty = true;
       $scope.notes.noteArr.push(welcomeNote);
-      updateNotes($scope);
+      controller.updateNotes();
     }
     // Create our modal
     $ionicModal.fromTemplateUrl('newnote-modal.html', function(modal) {
@@ -94,37 +84,57 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     $ionicModal.fromTemplateUrl('editnote-modal.html', function(modal) {
       $scope.editnoteModal = modal;
     },  { scope: $scope });
-  }
+  })();
 
-  function updateNotes($scope) {
-    Notes.save($scope.notes);
-  }
+  $scope.testAlert = function () {
+    alert("searching");
+  };
+
+  $scope.createNote = function() {
+    if(!$scope.note) {
+      return;
+    }
+    $scope.note.tags = Tags.filterTags($scope.note.tags);
+    $scope.note.date = Date.now();
+    $scope.notes.noteArr.unshift($scope.note);
+    $scope.newnoteModal.hide();
+    controller.updateNotes();
+    $scope.note = {};
+  };
+
+  $scope.showNewNote = function() {
+    $scope.newnoteModal.show();
+  };
+
+  $scope.hideNewNote = function() {
+    $scope.newnoteModal.hide();
+  };
+
+  $scope.showEditNote = function(index) {
+    $scope.editedNote = angular.copy($scope.notes.noteArr[index]);
+    $scope.editedNote.index = index;
+    $scope.editnoteModal.show();
+  };
+
+  $scope.hideEditNote = function() {
+    $scope.editnoteModal.hide();
+  };
+
+  $scope.editNote = function(index) {
+    if (angular.isString($scope.editedNote.tags)) {
+      $scope.editedNote.tags = Tags.filterTags($scope.editedNote.tags);
+    }
+    $scope.notes.noteArr[index] = $scope.editedNote;
+    controller.updateNotes();
+    $scope.editnoteModal.hide();
+  };
+
+  $scope.removeNote = function(index) {
+    if (confirm('Are you sure?')) {
+      $scope.notes.noteArr.splice(index, 1);
+      controller.updateNotes();
+    }
+  };
 });
 
-function filterTags(tagString) {
-  var set = filterSameTags(tagString);
-  return removeWhiteSpaces(set);
-};
 
-function filterSameTags(tagString) {
-  var set = [];
-  var tagArr;
-  if (tagString) {
-    tagArr = tagString.split(',').filter(function(tag) {
-        return tag !== '';
-    });
-
-    tagArr.forEach(function(tag) {
-      if (set.indexOf(tag) === -1) set.push(tag);
-    });
-  }
-  return set;
-};
-
-function removeWhiteSpaces(set) {
-  var tagWithWhiteSpaceBoundary;
-  return set.map(function(tag) {
-    tagWithWhiteSpaceBoundary = tag.match(/^\s*(\S+[\S\s]*\S+)\s*$/);
-    return (tagWithWhiteSpaceBoundary) ? tagWithWhiteSpaceBoundary[1] : tag;
-  });
-};
