@@ -20,22 +20,29 @@ angular.module('inotes', ['ionic', 'notes-directives'])
 .factory('Tags', function () {
   return {
     filterTags: function (tagString) {
-      var set = this.filterSameTags(tagString);
-      return this.removeWhiteSpaces(set);
+      var originalSet = this.createSetFromString(tagString);
+      var set = [];
+      set = this.removeWhiteSpaces(originalSet);
+      console.log('after removing: ', set);
+      return this.filterSameTags(set);
     },
 
-    filterSameTags: function (tagString) {
-      var set = [];
+    createSetFromString: function (tagString) {
       var tagArr;
       if (tagString) {
         tagArr = tagString.split(',').filter(function(tag) {
+            console.log(tag);
             return tag !== '';
         });
-
-        tagArr.forEach(function(tag) {
-          if (set.indexOf(tag) === -1) set.push(tag);
-        });
       }
+      return tagArr;
+    },
+
+    filterSameTags: function (tags) {
+      var set = [];
+      tags.forEach(function(tag) {
+        if (set.indexOf(tag) === -1) set.push(tag);
+      });
       return set;
     },
 
