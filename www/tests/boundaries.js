@@ -3,17 +3,19 @@
 'use strict';
 
 function removeWhiteSpaces (set) {
-  var tagWithWhiteSpaceBoundary;
+  var tagWithoutWhitespaceBoundary;
   return set.map(function(tag) {
-    tagWithWhiteSpaceBoundary = tag.match(/^\s*(\S+[\S\s]*\S+)\s*$/);
-    return (tagWithWhiteSpaceBoundary) ? tagWithWhiteSpaceBoundary[1] : tag;
+    tagWithWhitespaceBoundary = tag.trim();
+    return tagWithWhitespaceBoundary;
   });
 }
 
 var testSet = [
-  'a a',
-  ' a a',
-  ' a a '
+  'a',
+  ' a',
+  'a ',
+  ' a ',
+  'aa'
 ];
 
 var modSet = removeWhiteSpaces(testSet);

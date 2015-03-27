@@ -21,7 +21,7 @@ angular.module('inotes', ['ionic', 'notes-directives'])
   return {
     filterTags: function (tagString) {
       var originalSet = this.createSetFromString(tagString);
-      var set = [];
+      var set;
       set = this.removeWhiteSpaces(originalSet);
       console.log('after removing: ', set);
       return this.filterSameTags(set);
@@ -47,10 +47,10 @@ angular.module('inotes', ['ionic', 'notes-directives'])
     },
 
     removeWhiteSpaces: function (set) {
-      var tagWithWhiteSpaceBoundary;
+      var tagWithoutWhitespaceBoundary;
       return set.map(function(tag) {
-        tagWithWhiteSpaceBoundary = tag.match(/^\s*(\S+[\S\s]*\S+)\s*$/);
-        return (tagWithWhiteSpaceBoundary) ? tagWithWhiteSpaceBoundary[1] : tag;
+        tagWithWhitespaceBoundary = tag.trim();
+        return tagWithWhitespaceBoundary;
       });
     }
   };
