@@ -71,9 +71,10 @@ angular.module('inotes', ['ionic', 'notes-directives'])
       title: 'Welcome!',
       text: 'Welcome to iNotes! This is a simple app ' +
         'to manage your notes. You can\n' +
-        '- add your notes, and\n' +
-        '- remove them\n\n' +
-        'Soon you will be able to search and edit your notes, too.\n\n' +
+        '- add your notes,\n' +
+        '- remove them and\n' +
+        '- edit them.\n\n' +
+        'Soon you will be able to search your notes, too.\n\n' +
         'Enjoy it!',
       tags: ['Welcome note', 'enjoy']
     };
