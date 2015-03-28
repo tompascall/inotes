@@ -15,7 +15,7 @@ angular.module('inotes')
     },
 
     createSetFromString: function (tagString) {
-      var tagArr;
+      var tagArr = [];
       if (tagString) {
         tagArr = tagString.split(',').filter(function(tag) {
             console.log(tag);
