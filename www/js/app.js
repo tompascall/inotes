@@ -1,1 +1,1 @@
-angular.module('inotes', ['ionic']);
+angular.module('inotes', ['ionic', 'ngRoute']);
