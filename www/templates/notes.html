@@ -1,20 +1,41 @@
-<ion-content>
-  <ion-list>
-    <ion-item class="note" ng-repeat="note in notes.noteArr">
-      <div class="row">
-        <div class="col col-80 note-title"><h2 class="note-title"><span class="wordwrap" ng-bind="note.title"></span></h2></div>
-        <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
-      </div>
-      <textarea rows="10" readonly ng-bind="note.text"></textarea>
-      <div class="row">
-        <div class="col col-80 tag-title">
-          <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag wordwrap" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
-        </div>
-        <div class="col col-20 note-edit">
-          <a ng-click="showEditNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
-        </div>
-      </div>
 
-    </ion-item>
-  </ion-list>
-</ion-content>
+<div ng-controller="InotesCtrl">
+
+  <ion-header-bar class="bar-dark" align-title="center">
+    <button class="button button-icon" ng-click="toggleSearchNote()">
+      <i class="icon ion-search"></i>
+    </button>
+    <h1 id="notes-header" class="title">iNotes</h1>
+    <!-- New Note button-->
+    <button class="button button-icon" ng-click="showNewNote()">
+      <i class="icon ion-plus-round"></i>
+    </button>
+  </ion-header-bar>
+
+  <ion-content>
+    <div ng-show="searchNote">
+      <label class="item item-input">
+        <input type="search" placeholder="search your note" ng-model="searchTerm">
+      </label>
+    </div>
+
+    <ion-list>
+      <ion-item class="note" ng-repeat="note in notes.noteArr | filter: searchTerm">
+        <div class="row">
+          <div class="col col-80 note-title"><h2 class="note-title"><span class="wordwrap" ng-bind="note.title"></span></h2></div>
+          <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
+        </div>
+        <textarea rows="10" readonly ng-bind="note.text"></textarea>
+        <div class="row">
+          <div class="col col-80 tag-title">
+            <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag wordwrap" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
+          </div>
+          <div class="col col-20 note-edit">
+            <a ng-click="showEditNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
+          </div>
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

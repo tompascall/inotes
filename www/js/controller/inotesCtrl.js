@@ -42,8 +42,11 @@ angular.module('inotes')
     },  { scope: $scope });
   })();
 
-  $scope.testAlert = function () {
-    alert("searching");
+  $scope.toggleSearchNote = function () {
+    $scope.searchNote = !$scope.searchNote;
+    if (!$scope.searchNote) {
+      $scope.searchTerm = '';
+    }
   };
 
   $scope.createNote = function() {
