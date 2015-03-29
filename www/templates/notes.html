@@ -15,12 +15,12 @@
   <ion-content>
     <div ng-show="searchNote">
       <label class="item item-input">
-        <input type="search" placeholder="search your note" ng-model="searchTerm">
+        <input type="search" placeholder="search" ng-model="search.$">
       </label>
     </div>
 
     <ion-list>
-      <ion-item class="note" ng-repeat="note in notes.noteArr | filter: searchTerm">
+      <ion-item class="note" ng-repeat="note in notes.noteArr | filter:search">
         <div class="row">
           <div class="col col-80 note-title"><h2 class="note-title"><span class="wordwrap" ng-bind="note.title"></span></h2></div>
           <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>

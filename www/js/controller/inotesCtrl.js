@@ -13,6 +13,8 @@ angular.module('inotes')
 
   this.init = (function() {
     $scope.note = {};
+    $scope.searchNote = false;
+    $scope.search = {};
     // Load or initialize projects
     $scope.notes = Notes.all();
     var welcomeNote = {
@@ -45,7 +47,9 @@ angular.module('inotes')
   $scope.toggleSearchNote = function () {
     $scope.searchNote = !$scope.searchNote;
     if (!$scope.searchNote) {
-      $scope.searchTerm = '';
+
+      $scope.search = {};
+
     }
   };
 
