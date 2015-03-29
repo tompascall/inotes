@@ -23,8 +23,7 @@ angular.module('inotes')
         'to manage your notes. You can\n' +
         '- add your notes,\n' +
         '- remove them and\n' +
-        '- edit them.\n\n' +
-        'Soon you will be able to search your notes, too.\n\n' +
+        '- edit and search them\n\n' +
         'Enjoy it!',
       tags: ['Welcome note', 'enjoy']
     };
