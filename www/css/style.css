@@ -46,3 +46,26 @@ p.tag {
   white-space: normal;
   line-height: 30px;
 }
+
+
+.animate-show {
+ /* line-height: 20px;*/
+  opacity: 1;
+  height: 50px;
+ /* padding: 10px;
+  border: 1px solid black;
+  background: white;*/
+}
+
+.animate-show.ng-hide-add.ng-hide-add-active,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+  -webkit-transition: all linear 0.3s;
+  transition: all linear 0.3s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  height: 0;
+/* padding: 0 10px; */
+}
