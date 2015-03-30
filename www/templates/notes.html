@@ -23,7 +23,7 @@
       <ion-item class="note" ng-repeat="note in notes.noteArr | filter:search">
         <div class="row">
           <div class="col col-80 note-title"><h2 class="note-title"><span class="wordwrap" ng-bind="note.title"></span></h2></div>
-          <div class="col col-20 note-close"><a ng-click="removeNote($index)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
+          <div class="col col-20 note-close"><a ng-click="removeNote(note)" class="button button-icon icon icon-right ion-ios7-close-outline note-close"></a></div>
         </div>
         <textarea rows="10" readonly ng-bind="note.text"></textarea>
         <div class="row">
@@ -31,7 +31,7 @@
             <p class="tag tag-title"><i class="icon ion-pricetags"></i><strong>Tags: </strong><span class="tag wordwrap" ng-repeat="tag in note.tags" ng-bind="tag"></span></p>
           </div>
           <div class="col col-20 note-edit">
-            <a ng-click="showEditNote($index)" class="button button-icon icon icon-right ion-edit note-edit"></a>
+            <a ng-click="showEditNote(note)" class="button button-icon icon icon-right ion-edit note-edit"></a>
           </div>
         </div>
 

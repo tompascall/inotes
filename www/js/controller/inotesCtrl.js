@@ -12,9 +12,10 @@ angular.module('inotes')
   };
 
   this.init = (function() {
-    $scope.note = {};
+    //$scope.note = {};
     $scope.searchNote = false;
     $scope.search = {};
+    $scope.newNote = {};
     // Load or initialize projects
     $scope.notes = Notes.all();
     var welcomeNote = {
@@ -27,6 +28,12 @@ angular.module('inotes')
         'Enjoy it!',
       tags: ['Welcome note', 'enjoy']
     };
+    Object.defineProperty(welcomeNote, 'date', {
+      value:Date.now(),
+      writable: true,
+      enumerable: false,
+      configurable: false
+    });
 
     if (!$scope.notes.dirty) {
       $scope.notes.dirty = true;
@@ -43,25 +50,36 @@ angular.module('inotes')
     },  { scope: $scope });
   })();
 
+  this.getNoteIndex = function (note) {
+    var noteArr = $scope.notes.noteArr;
+    for (var i = 0; i < noteArr.length; i++) {
+      if (noteArr[i].date === note.date) return i;
+    }
+  };
+
   $scope.toggleSearchNote = function () {
     $scope.searchNote = !$scope.searchNote;
     if (!$scope.searchNote) {
-
       $scope.search = {};
-
     }
   };
 
   $scope.createNote = function() {
-    if(!$scope.note) {
-      return;
-    }
-    $scope.note.tags = Tags.filterTags($scope.note.tags);
-    $scope.note.date = Date.now();
-    $scope.notes.noteArr.unshift($scope.note);
+
+    $scope.newNote.tags = Tags.filterTags($scope.newNote.tags);
+
+    Object.defineProperty($scope.newNote, 'date', {
+      value: Date.now(),
+      writable: true,
+      enumerable: false, // otherwise the searching can be failed
+      configurable: false
+    });
+
+    $scope.newNote.date = Date.now();
+    $scope.notes.noteArr.unshift($scope.newNote);
     $scope.newnoteModal.hide();
     controller.updateNotes();
-    $scope.note = {};
+    $scope.newNote = {};
   };
 
   $scope.showNewNote = function() {
@@ -72,9 +90,8 @@ angular.module('inotes')
     $scope.newnoteModal.hide();
   };
 
-  $scope.showEditNote = function(index) {
-    $scope.editedNote = angular.copy($scope.notes.noteArr[index]);
-    $scope.editedNote.index = index;
+  $scope.showEditNote = function(note) {
+    $scope.editedNote = angular.copy(note);
     $scope.editnoteModal.show();
   };
 
@@ -82,18 +99,22 @@ angular.module('inotes')
     $scope.editnoteModal.hide();
   };
 
-  $scope.editNote = function(index) {
+  $scope.editNote = function() {
     if (angular.isString($scope.editedNote.tags)) {
       $scope.editedNote.tags = Tags.filterTags($scope.editedNote.tags);
     }
-    $scope.notes.noteArr[index] = $scope.editedNote;
+
+    var noteIndex = controller.getNoteIndex($scope.editedNote);
+    $scope.notes.noteArr[noteIndex] = $scope.editedNote;
+
     controller.updateNotes();
     $scope.editnoteModal.hide();
   };
 
-  $scope.removeNote = function(index) {
+  $scope.removeNote = function(note) {
     if (confirm('Are you sure?')) {
-      $scope.notes.noteArr.splice(index, 1);
+      var noteIndex = controller.getNoteIndex(note);
+      $scope.notes.noteArr.splice(noteIndex, 1);
       controller.updateNotes();
     }
   };

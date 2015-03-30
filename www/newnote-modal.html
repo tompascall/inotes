@@ -11,13 +11,13 @@
     <form ng-submit="createNote()">
       <div class="list">
         <label class="item item-input">
-          <input type="text" placeholder="Title of your note" ng-model="note.title">
+          <input type="text" placeholder="Title of your note" ng-model="newNote.title">
         </label>
         <label class="item item-input">
-          <textarea rows="10" placeholder="Enter your note here" ng-model="note.text"></textarea>
+          <textarea rows="10" placeholder="Enter your note here" ng-model="newNote.text"></textarea>
         </label>
         <label class="item item-input">
-          <input type="text" placeholder="Tags (separated by commas)" ng-model="note.tags">
+          <input type="text" placeholder="Tags (separated by commas)" ng-model="newNote.tags">
         </label>
       </div>
       <div class="padding">
