@@ -1,0 +1,49 @@
+{
+  /* ENFORCING options */
+
+  "bitwise"       : true,     // prohibit bitwise operators (&, |, ^, etc.).
+  "eqeqeq"        : true,     // require triple equals i.e. `===`.
+  "forin"         : true,     // requires all `for in` loops to filter object's own items
+  "immed"         : true,     // require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
+  "latedef"       : false,    // prohibit variable use before definition.
+  "newcap"        : true,     // require capitalization of all constructor functions e.g. `new F()`.
+  "noarg"         : true,     // prohibit use of `arguments.caller` and `arguments.callee`.
+  "noempty"       : true,     // prohibit use of empty blocks.
+  "nonew"         : true,     // prohibit use of constructors for side-effects.
+  "quotmark"      : "single", // enforces the consistency of quotation marks used throughout your code
+  "regexp"        : true,     // prohibit `.` and `[^...]` in regular expressions.
+  "undef"         : true,     // require all non-global variables be declared before they are used.
+ // "unused"        : true,     // warns when you define and never use your variables
+  "strict"        : true,     // require `use strict` pragma in every file.
+  "trailing"      : true,     // prohibit trailing whitespaces.
+
+  "maxparams"     : 5,        // max number of formal parameters allowed per function
+  "maxdepth"      : 3,        // how nested do you want your blocks to be
+  "maxlen"        : 120,       // the maximum length of a line
+  "maxerr"        : 25,       // maximum errors before stopping.
+  "esnext"        : true,      // enable ES6 features
+  /* RELAXING options */
+
+  "globalstrict"  : false,    // suppresses warnings about the use of global strict mode
+
+  /* ENVIRONMENT options */
+
+  "devel"       : true,       // defines globals that are usually used for logging poor-man's debugging: console, alert, etc
+  "node"        : true,       // defines globals available when your code is running inside of the Node runtime environment
+
+  "predef": [
+    "require",
+    "describe",
+    "describe.skip",
+    "describe.only",
+    "it",
+    "it.skip",
+    "it.only",
+    "before",
+    "after",
+    "beforeEach",
+    "afterEach",
+    "angular",
+    "window"
+  ]
+}

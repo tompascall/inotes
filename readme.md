@@ -9,6 +9,6 @@ In order to test the app in a browser
 - select the `localhost` option
 - open `http://localhost:8100` in the browser
 
-You can only add and remove notes for now. These notes are stored locally.
+You can add and remove, edit and search notes for now. These notes are stored locally.
 
 

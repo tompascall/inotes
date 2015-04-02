@@ -6,12 +6,39 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var mocha = require('gulp-mocha');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['test']);
+
+gulp.task('lint-client', function() {
+  return gulp.src('./www/js/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('lint-test', function() {
+  return gulp.src('./www/tests/**/*.spec.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('test', ['lint-test', 'lint-client'], function() {
+  return gulp.src(['./www/tests/*.spec.js'], { read: false })
+    .pipe(mocha({
+      reporter: 'spec',
+      // globals: {
+      //   should: require('should')
+      // }
+    }))
+    .on('error', gutil.log);
+});
+
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -26,7 +53,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(['./www/js/**', './www/tests/*.spec.js'], ['test']);
 });
 
 gulp.task('install', ['git-check'], function() {
