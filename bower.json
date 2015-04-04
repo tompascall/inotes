@@ -3,5 +3,9 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-beta.14"
+  },
+  "dependencies": {
+    "holderjs": "~2.5.2",
+    "angular-holderjs": "~1.1.0"
   }
 }

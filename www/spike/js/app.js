@@ -1,25 +1,23 @@
 // app.js
 
-angular.module('fb-test', [])
+angular.module('fb-test', ['ngHolder'])
 
 .controller('FbController', function ($scope, $timeout) {
   var database = new Firebase('https://scorching-torch-6342.firebaseio.com/');
-  var usersRef = database.child("users");
+  var usersRef = database.child("test/users");
 
   usersRef.set({
     '0': {
-      date_of_birth: "June 23, 1912",
-      full_name: "Alan Turing"
+      full_name: "Samson Godfri Gnanasegaran",
+      rating: 4
     },
     '1': {
-      date_of_birth: "December 9, 1906",
-      full_name: "Grace Hopper"
+      full_name: "Adam Kelly",
+      rating: 3,
     }
   });
 
   usersRef.on("value", function(snapshot) {
-    console.log(JSON.stringify(snapshot.val()));
-
     $timeout(function() {
       $scope.users = snapshot.val();
     }, 0);
@@ -29,22 +27,23 @@ angular.module('fb-test', [])
 
 
   $scope.addUser = function () {
+    // Keys must be non-empty strings and can't contain ".", "#", "$", "/", "[", or "]"
+    // The $scope.users object contains $$hashKey angular key, so we have to filter it out
     var users = $scope.users.map(function (user) {
       return {
-        date_of_birth: user.date_of_birth,
-        full_name: user.full_name
+        full_name: user.full_name,
+        rating: user.rating
       };
     });
 
     users.push({
-      date_of_birth: $scope.newUserBirth,
-      full_name: $scope.newUserName
+      full_name: $scope.newUserName,
+      date_of_birth: $scope.rating
     });
 
-    console.log(JSON.stringify(users));
     usersRef.set(users);
 
-    $scope.newUserBirth = $scope.newUserName = '';
+    $scope.rating = $scope.newUserName = '';
 
   };
 });
