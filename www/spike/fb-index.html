@@ -4,17 +4,24 @@
 </head>
 <body ng-app="fb-test">
   <div ng-controller="FbController">
-    <div ng-repeat="user in users">
-      <p ng-bind="user.full_name"></p>
+    <div ng-repeat="provider in providers | filter: search">
+      <p ng-bind="'Name: ' + provider.full_name"></p>
       <img holder data-src="holder.js/100x100/text:Profile Picture">
-      <p ng-bind="'Rating: ' + user.rating"></p>
+      <p ng-bind="'Rating: ' + provider.rating"></p>
       <hr>
     </div>
     <form>
-      <p>Add user</p>
-      Username: <input ng-model="newUserName">
-      Date of birth: <input ng-model="rating">
-      <button ng-click="addUser()">Add</button>
+      <p>Add provider</p>
+      Name: <input ng-model="newProviderName">
+      Rating: <input ng-model="newProviderRating">
+      <button ng-click="addProvider()">Add</button>
+    </form>
+    <hr>
+    <form>
+      Search provider by any keyword <input ng-model="search.$" placeholder="Search">
+    </form>
+    <form>
+      Search provider by rating <input ng-model="search.rating" placeholder="Search">
     </form>
   </div>
   <script src="https://cdn.firebase.com/js/client/2.2.3/firebase.js"></script>
