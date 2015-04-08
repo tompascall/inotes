@@ -44,6 +44,7 @@
     "beforeEach",
     "afterEach",
     "angular",
-    "window"
+    "window",
+    "Firebase"
   ]
 }

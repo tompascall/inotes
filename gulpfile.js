@@ -17,7 +17,7 @@ var paths = {
 gulp.task('default', ['test']);
 
 gulp.task('lint-client', function() {
-  return gulp.src('./www/js/**/*.js')
+  return gulp.src(['./www/js/**/*.js', './www/spike/js/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });
@@ -53,7 +53,7 @@ gulp.task('sass', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['./www/js/**', './www/tests/*.spec.js'], ['test']);
+  gulp.watch(['./www/js/**', './www/tests/*.spec.js', './www/spike/js/*.js'], ['test']);
 });
 
 gulp.task('install', ['git-check'], function() {

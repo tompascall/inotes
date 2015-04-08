@@ -1,41 +1,51 @@
 // app.js
 
-angular.module('fb-test', ['ngHolder'])
+'use strict';
 
-.controller('FbController', function ($scope, $timeout) {
-  var database = new Firebase('https://scorching-torch-6342.firebaseio.com/');
-  var providersRef = database.child("test/providers/tutors/");
-  $scope.providers = [];
+angular.module('fb-test', ['ngHolder', 'firebase'])
 
-  providersRef.set(null); // clear database
-
-  providersRef.push({
-    full_name: "Samson Godfri Gnanasegaran",
+.value('providersData', [
+  {
+    full_name: 'Samson Godfri Gnanasegaran',
     rating: 4,
-    objects: ['']
-  });
-
-  providersRef.push({
-    full_name: "Adam Kelly",
+    objects: [''],
+    profilePictureUrl: 'https://s3-eu-west-1.amazonaws.com/profile.photo.01/animal_profile_01.jpg'
+  },
+  {
+    full_name: 'Adam Kelly',
     rating: 3,
-    objects: ['']
-  })
+    objects: [''],
+    profilePictureUrl: 'https://s3-eu-west-1.amazonaws.com/profile.photo.01/animal_profile_02.jpeg'
+  }
+])
 
-  providersRef.on("child_added", function(snapshot) {
-    $timeout(function() {
-      $scope.providers.push(snapshot.val());
-    }, 0);
-  }, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
-  });
+.factory('ProvidersDataRef', function ($firebaseArray) {
+  var database = new Firebase('https://scorching-torch-6342.firebaseio.com/');
+  var providersRef = database.child('test/providers/tutors/');
+  return $firebaseArray(providersRef);
+})
 
+.controller('FbController', function ($scope,
+                                      providersData,
+                                      ProvidersDataRef) {
+
+  $scope.providers = ProvidersDataRef;
 
   $scope.addProvider = function () {
-    providersRef.push({
+    $scope.providers.$add({
       full_name: $scope.newProviderName,
       rating: $scope.newProviderRating,
       objects: ['']
     });
+
     $scope.newProviderRating = $scope.newProviderName = $scope.objects = '';
   };
+
+  $scope.providers.$loaded().then(function () {
+    if ($scope.providers.length === 0) {
+      providersData.forEach(function (provider) {
+        $scope.providers.$add(provider);
+      });
+    }
+  });
 });
